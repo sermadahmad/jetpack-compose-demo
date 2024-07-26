@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Scaffold
@@ -43,50 +44,45 @@ class MainActivity : ComponentActivity() {
         setContent {
             HelloJetpackComposeTheme {
                 val name = "SERMAD AHMAD"
-                val cgpa = 3.28f
-                Hello(name, cgpa)
+                val phoneNumber = 123456789
+                Hello(name, phoneNumber)
             }
         }
     }
 }
 @Composable
-fun Hello(name: String, cgpa: Float){
+fun Hello(name: String, phoneNumber: Int){
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
         modifier = Modifier
             .fillMaxSize()
             .background(Color.DarkGray)
     ) {
-        Row(
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically,
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.Gray)
-                .padding(32.dp)
-
+                .fillMaxHeight(0.4f)
+                .background(color = Color.Gray)
         ) {
+            Spacer(
+                modifier = Modifier
+                    .padding(32.dp)
+            )
             Image(
-                painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                contentDescription = "Nothing",
+                painter = painterResource(id = R.drawable.dp),
+                contentDescription = "Picture",
                 modifier = Modifier
-                    .background(Color.Cyan)
+                    .size(150.dp)
+                    .clip(CircleShape)
             )
-            Spacer(modifier = Modifier
-                .width(15.dp)
-
-            )
-            Column(
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
+            Spacer(
                 modifier = Modifier
-                    .background(Color.Gray)
-            ) {
-                StyledText(text = name)
-                StyledText(text = cgpa.toString())
-            }
+                    .padding(10.dp)
+            )
+            StyledText(text = name)
+            StyledText(text = phoneNumber.toString())
         }
+
     }
 
 }
@@ -94,7 +90,7 @@ fun Hello(name: String, cgpa: Float){
 fun StyledText(text: String){
     Text(
         text = text,
-        color = Color.Cyan,
+        color = Color.Black,
         fontSize = 24.sp,
         fontWeight = FontWeight.SemiBold,
         textAlign = TextAlign.Center,
@@ -107,6 +103,6 @@ fun StyledText(text: String){
 @Composable
 fun DefaultPreview() {
     HelloJetpackComposeTheme {
-        Hello("SERMAD AHMAD", 3.28f)
+        Hello("SERMAD AHMAD", 123456789)
     }
 }
