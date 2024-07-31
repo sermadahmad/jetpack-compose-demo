@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
 fun ContactCard(contact: Contact, modifier: Modifier = Modifier){
     val context = LocalContext.current
     val intent = Intent(context, SecondActivity::class.java)
-    intent.putExtra("contact", contact)
+    intent.putExtra("contactId", contact.id)
     Spacer(modifier = Modifier.size(4.dp))
     Row(
 

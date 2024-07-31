@@ -35,17 +35,17 @@ class SecondActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             HelloJetpackComposeTheme {
-                  val contact = intent.getParcelableExtra<Contact>("contact")
-                if (contact != null) {
-                    ContactDetail(contact = contact)
-                }
+                val contactId = intent.getIntExtra("contactId", -1)
+
+                ContactDetail(contactId = contactId)
+
             }
         }
     }
 }
 
 @Composable
-fun ContactDetail(contact: Contact) {
+fun ContactDetail(contactId: Int) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -73,10 +73,10 @@ fun ContactDetail(contact: Contact) {
                     .clip(CircleShape)
             )
             Spacer(
-
-
                 modifier = Modifier.padding(10.dp)
             )
+
+            val contact = Contact.contacts.find { it.id == contactId } ?: Contact()
             StyledText(text = contact.name)
             StyledText(text = contact.phoneNumber)
 
@@ -102,7 +102,6 @@ fun StyledText(text: String) {
 @Composable
 fun ContactDetailPreview() {
     HelloJetpackComposeTheme {
-        val contact = Contact(1, "Name", "Phone Number")
-        ContactDetail(contact)
+        ContactDetail(2)
     }
 }
