@@ -1,5 +1,7 @@
 package com.example.hellojetpackcompose
 
+
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,12 +17,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -39,8 +43,12 @@ class MainActivity : ComponentActivity() {
 }
 @Composable
 fun ContactCard(contact: Contact, modifier: Modifier = Modifier){
+    val context = LocalContext.current
+    val intent = Intent(context, SecondActivity::class.java)
+    intent.putExtra("contact", contact)
     Spacer(modifier = Modifier.size(4.dp))
     Row(
+
         modifier = Modifier
             .background(MaterialTheme.colorScheme.inverseOnSurface, shape = CircleShape)
             .fillMaxWidth()
@@ -54,14 +62,23 @@ fun ContactCard(contact: Contact, modifier: Modifier = Modifier){
                 .background(Color.DarkGray)
                 .border(width = 2.dp, color = Color.Black, shape = CircleShape)
         )
-        Spacer(modifier = Modifier.weight(1f))
-        Column(modifier = Modifier.padding(28.dp)) {
+        Column(modifier = Modifier.padding(top = 28.dp, start = 12.dp, end = 4.dp)) {
             Text(
                 text = contact.name
             )
             Text(
                 text = contact.phoneNumber
             )
+        }
+        ElevatedButton(
+            onClick = {
+                context.startActivity(intent)
+            },
+            modifier = Modifier
+                .padding(top = 28.dp, end = 4.dp)
+            ) {
+            Text(text = "Detail View")
+
         }
 
     }
@@ -82,6 +99,5 @@ fun ContactList(modifier: Modifier = Modifier){
 fun DefaultPreview() {
     HelloJetpackComposeTheme {
         ContactList()
-
     }
 }
